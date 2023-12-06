@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bcrypt = require("bcrypt");
+var nodemailer = require('nodemailer');
+
 const saltRounds = 10;
 const port = 3000;
 const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}\.edu\.tr$/;
@@ -36,6 +38,15 @@ const User = mongoose.model(`qrUser`,UserSchema);
 
 
 ///////////////
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'yusuf5335steam@gmail.com',
+      pass: 'izxr hlbh tkeo bpty'
+    }
+  });
+
 
 app.get("/",(req,res) => {
     console.log(req.session.loggedIn)
@@ -146,6 +157,22 @@ app.get("/qr",(req,res) =>{
 
 app.post("/password",(req,res)=>{
    const email = req.body.email
+
+   var mailOptions = {
+    from: 'yusuf5335steam@gmail.com',
+    to: email,
+    subject: 'new password',
+    text: 'https://www.youtube.com/shorts/DikCj4Nl7u4'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  res.redirect("/")
 })
 
 app.listen(port,()=>{
