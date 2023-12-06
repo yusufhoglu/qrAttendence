@@ -18,7 +18,7 @@ app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    // cookie: { secure: true, sameSite: "none" }
+    cookie: { secure: true, sameSite: "none" }
   }));
 
 //////////////////////mongoDB
@@ -53,6 +53,8 @@ app.get("/login",(req,res) => {
         res.redirect("home")
     }
 })
+
+
 app.post("/login",(req,res)=> {
     const email = req.body.email;
     const password = req.body.password;
@@ -136,6 +138,10 @@ app.get("/logout",(req,res)=>{
 
 app.get("/password",(req,res)=>{
     res.render("password",{message:"Reset Password"});
+})
+
+app.get("/qr",(req,res) =>{
+    res.render("qr")
 })
 
 app.post("/password",(req,res)=>{
