@@ -16,11 +16,13 @@ const postPassword= async (req, res) => {
             // Generate a unique token and set expiration time
             const resetToken = crypto.randomBytes(20).toString("hex");
             const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
+            console.log(Date.now());
+            console.log(resetTokenExpiration);
             // Update user document with the resetToken and expiration time
             user.resetToken = resetToken;
             user.resetTokenExpiration = resetTokenExpiration;
             user.save().then(()=>{
-                const resetLink = `todolist-qdpv.onrender.com/reset/${resetToken}`;
+                const resetLink = `http://localhost:3000/reset/${resetToken}`;
                 const mailOptions = {
                     from: 'yusuf5335steam@gmail.com',
                     to: email,
@@ -35,7 +37,7 @@ const postPassword= async (req, res) => {
                     }
                 });
             })
-            res.redirect("/");
+            res.redirect("password",{message:"Check your email box"});
         })
         .catch((err) => {
             console.error(err);

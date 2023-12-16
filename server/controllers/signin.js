@@ -39,14 +39,14 @@ const postSignIn = async (req,res) => {
                 })
                 user.save()
                 .then(()=> {
-                    const resetLink = `todolist-qdpv.onrender.com/verificate/${verificateToken}`;
+                    const resetLink = `http://localhost:3000/verificate/${verificateToken}`;
                     const mailOptions = {
                         from: 'yusuf5335steam@gmail.com',
                         to: email,
                         subject: 'Account activation',
                         text: `Click the link to verification: ${resetLink}`
                     };
-
+                    console.log(email)
                     transporter.sendMail(mailOptions, (error, info) => {
                         if (error) {
                             console.log(error);
