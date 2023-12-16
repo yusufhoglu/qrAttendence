@@ -37,7 +37,7 @@ const postPassword= async (req, res) => {
                     }
                 });
             })
-            res.redirect("password",{message:"Check your email box"});
+            res.redirect({message:"Check your email box"},"password");
         })
         .catch((err) => {
             console.error(err);
