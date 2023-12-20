@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const findOrCreate = require('mongoose-findorcreate')
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, unique: true },
-    studentId: { type: String, unique: true },
+    googleId:{type:String},
+    email: { type: String, unique:true},
+    studentId: { type: String, default:"falan"},
+    // studentId: { type: String, unique: true },
     userPassword: String,
     resetToken: String,
     resetTokenExpiration: Date,
@@ -11,6 +14,8 @@ const userSchema = new mongoose.Schema({
     status:{type:Boolean, default:false}
 });
 
+userSchema.plugin(findOrCreate)
+
 const User = mongoose.model(`qrUser`, userSchema);
 
-module.exports = User;
+module.exports = {User,userSchema};

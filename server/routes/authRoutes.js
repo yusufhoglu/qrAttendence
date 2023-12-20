@@ -8,7 +8,8 @@ var {postPassword,getPassword} = require('../controllers/password');
 var {qr} = require('../controllers/qr');
 var {reset,postReset} = require('../controllers/reset');
 var {verificate,postVerificate} = require('../controllers/verification');
-
+var {auth,authCallBack} = require('../controllers/googleAuthentication');
+var {passport} =  require('../config/passport')
 var {getSignIn,postSignIn} = require('../controllers/signin');
 
 const router = express.Router();
@@ -37,5 +38,15 @@ router.post('/reset/:token', postReset);
 
 router.get('/changePassword',getChangePassword);
 router.post('/changePassword', postChangePassword);
+
+router.get('/auth/google',auth);
+// router.post('auth/google/secrets',postGoogle)
+
+router.get('/auth/google/secrets',
+    passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }),
+    (req, res)=> {
+        req.session.loggedIn = true;
+        res.render("index");
+});
 
 module.exports = router;

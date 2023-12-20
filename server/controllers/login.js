@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
-const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}\.edu\.tr$/;
+const {User} = require('../models/userModel');
+const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}\.[A-Za-z]{2,}\.[A-Za-z]{2,}/;
 const saltRounds = 10;
 
 const getLogin = async (req, res) => {

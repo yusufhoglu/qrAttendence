@@ -1,5 +1,5 @@
 const getHome = async(req,res) => {
-    console.log(req.session.loggedIn)
+    console.log("giriş bilgisi"+req.session.loggedIn)
     res.render("index")
 }
 

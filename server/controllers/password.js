@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const {User} = require('../models/userModel');
 const crypto = require('crypto');
 const transporter = require('../middleware/nodeMailer')
 
@@ -37,7 +37,7 @@ const postPassword= async (req, res) => {
                     }
                 });
             })
-            res.redirect({message:"Check your email box"},"password");
+            res.render("password",{message:"Check your email box"});
         })
         .catch((err) => {
             console.error(err);

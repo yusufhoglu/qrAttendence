@@ -1,10 +1,10 @@
-const User = require('../models/userModel');
+const {User} = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const transporter = require('../middleware/nodeMailer')
 
 const saltRounds = 10;
-const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}\.edu\.tr$/;
+const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}\.[A-Za-z]{2,}\.[A-Za-z]{2,}/;
 
 const getSignIn = async (req,res) => {
     if(!req.session.loggedIn){
@@ -58,8 +58,8 @@ const postSignIn = async (req,res) => {
                     // res.render("login",{message:"You have successfully registered"})
                 })
                 .catch((err) =>{
-                    console.log(err)
-                    res.render("signin",{message:"Email already exist!"})
+                    console.log("err"+err)
+                    res.render("signin",{message:err})
                 }) 
             })
         }else{

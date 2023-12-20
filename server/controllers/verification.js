@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const {User} = require('../models/userModel');
 const verificate = async (req,res) =>{
     try {
         const token = req.params.token;
