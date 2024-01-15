@@ -11,7 +11,13 @@ const userSchema = new mongoose.Schema({
     resetTokenExpiration: Date,
     verificateToken:String,
     verificateTokenExpiration: Date,
-    status:{type:Boolean, default:false}
+    status:{type:Boolean, default:false},
+    class: [
+        {
+            className:String,
+            timeStamp:Date
+        }
+    ]
 });
 
 userSchema.plugin(findOrCreate)
