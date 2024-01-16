@@ -47,4 +47,35 @@ const postLogin = async (req, res) => {
     })
 };
 
-module.exports = {getLogin,postLogin}
+const postLoginMobile = async (req, res) => {
+    console.log(req.body);
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(email, password);
+  
+    await User.findOne({ email })
+      .then((user) => {
+        bcrypt.compare(password, user.userPassword, (err, result) => {
+          if (result === true) {
+            if (user.status === true) {
+              req.session.email = email;
+              req.session.loggedIn = true;
+              res.send(req.session);
+              // res.redirect("home")
+              console.log("giriş yaptı");
+            } else {
+              res.send({ message: "Your account is not active" });
+            }
+          } else {
+            res.send({ message: "Wrong password" });
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send({ message: "Email is not registered" });
+      });
+  };
+  
+  module.exports = { getLogin, postLogin, postLoginMobile };
+  

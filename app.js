@@ -8,7 +8,9 @@ const googleStrategy = require('./server/middleware/googleOauth');
 const {passport,initializePassport} = require("./server/config/passport");
 const {User} = require('./server/models/userModel');
 const app = express();
+const cors = require('cors'); // Import the cors package
 
+app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
