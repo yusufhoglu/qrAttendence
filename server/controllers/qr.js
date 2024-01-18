@@ -23,11 +23,12 @@ const qr = async (req, res) => {
   const token = `${qrContent}|${expirationTime}`;
   getAttendence(qrContent);
   let list = [];
+  
   await Class.findOne({className:qrContent})
   .then((newClass) =>{
     list = newClass.students;
   })
-  console.log(list)
+  
   QRCode.toDataURL(token)
     .then((url) => {
       res.render("qr", { qr: url, attendence: list});

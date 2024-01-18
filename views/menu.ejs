@@ -6,10 +6,15 @@
     <title>Menu</title>
 </head>
 <body>
-    <ul>
+    <ul style="display: inline-block;display: flex;">
 
         <% classList.forEach(element => { %>
-            <a href="/qr/<%- element %>"><%- element %></a>
+            
+                <a href="/qr/<%- element %>"><%- element %></a>
+                <form method="post">
+                    <button type="submit">delete</button>
+                </form>
+             
         <% }); %>
     </ul>
     <form method="post">
