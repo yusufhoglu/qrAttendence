@@ -1,9 +1,11 @@
 const { User } = require("../models/userModel");
-const attendence = [];
-const getAttendence = (className) => {
-  User.find({
+const Class = require("../models/classModel");
+const { use } = require("passport");
+let attendence = [];
+const getAttendence = async (className) => {
+  await User.find({
     class: {
-      $elemMatch: { className: className, timeStamp: { $gte: Date.now() } },
+       $elemMatch: { className: className, timeStamp: { $gte: Date.now() } },
     },
   })
     .then((user) => {
@@ -16,6 +18,21 @@ const getAttendence = (className) => {
     .catch((err) => {
       console.log(err);
     });
+
+    await Class.findOne({className:className})
+    .then((newClass) =>{
+      newClass.students = attendence;
+      newClass.save();
+    })
+    attendence = [];
 };
 
-module.exports = { getAttendence, attendence };
+const getStudentList = async (className,list) =>{
+  await Class.findOne({className:className})
+  .then((newClass) =>{
+    list = newClass.students;
+  })
+  return list;
+}
+
+module.exports = { getAttendence, getStudentList };

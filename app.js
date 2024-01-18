@@ -40,7 +40,6 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log("geldi2");
   User.findById(id)
   .then((user,err)=>{
     done(err, user);
@@ -55,6 +54,6 @@ connectDB();
 app.use('/', authRoutes);
 
 const port = 3000;
-app.listen(port, () => {
+app.listen(port|process.env.PORT, () => {
     console.log(`Site listening on port ${port}`);
 });

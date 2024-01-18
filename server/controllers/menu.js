@@ -1,15 +1,24 @@
-const classList = []; //HER SINIFA ÖZEL CLASS LİST LAZIM
+const Class = require("../models/classModel")
 const addClass = async (req,res)=>{
     const className = req.body.class;
-    console.log(className)
-    if(!classList.includes(className)){
-        classList.push(className);
-    }
+
+    const newClass = new Class({
+        className:className, //UNİQUE DEĞİLSE HATA ATAR
+        students:[]
+    })
+    await newClass.save()
+
     res.redirect("/menu")
 }
 
 const menu = async (req,res) => {
-    console.log(classList)
+    let classList = [];
+    await Class.find({})
+    .then((classes)=>{
+        classes.forEach(element=>{
+            classList.push(element.className);
+        })
+    })
     res.render("menu",{"classList":classList});
 };
 

@@ -8,7 +8,7 @@ var getHome = require("../controllers/home");
 var { getLogin, postLogin, postLoginMobile } = require("../controllers/login");
 var { logOut } = require("../controllers/logout");
 var { postPassword, getPassword } = require("../controllers/password");
-var { qr, attendenceControl, scan } = require("../controllers/qr");
+var { qr, scan } = require("../controllers/qr");
 var { reset, postReset } = require("../controllers/reset");
 var { verificate, postVerificate } = require("../controllers/verification");
 var { auth, authCallBack } = require("../controllers/googleAuthentication");
@@ -59,8 +59,8 @@ router.get(
     res.render("index");
   }
 );
-
-router.get("/:qr", qr);
 router.post('/scan',scan);
+
+router.get("/qr/:qr", qr);
 
 module.exports = router;
