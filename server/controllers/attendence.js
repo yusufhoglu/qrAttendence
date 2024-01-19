@@ -1,6 +1,5 @@
 const { User } = require("../models/userModel");
 const Class = require("../models/classModel");
-const { use } = require("passport");
 let attendence = [];
 const getAttendence = async (className) => {
   await User.find({
@@ -21,7 +20,11 @@ const getAttendence = async (className) => {
 
     await Class.findOne({className:className})
     .then((newClass) =>{
-      newClass.students = attendence;
+      attendence.forEach(element => {
+        if(!newClass.students.includes(element)){
+            newClass.students.push(element);
+        }
+      })
       newClass.save();
     })
     attendence = [];
@@ -30,6 +33,7 @@ const getAttendence = async (className) => {
 const getStudentList = async (className,list) =>{
   await Class.findOne({className:className})
   .then((newClass) =>{
+    console.log(newClass)
     list = newClass.students;
   })
   return list;
