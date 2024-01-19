@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-</head>
-<body style="display: flex;justify-content: center;">
-    <div> 
-        <ul style="margin-top: 12rem" ;>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(165, 165, 230);
+        }
 
-            <% classList.forEach(element => { %>
-                <li style="display: flex; justify-content: space-between; align-items: center;">
-                    <a href="/qr/<%- element %>"><%- element %></a>
-                    <form style="padding-bottom: 1rem;" action="/delete" method="post">
-                        <button style="display:;" type="submit" name="element" value=<%- element %> >delete</button>
-                    </form>
-                </li>
-            <% }); %>
-        </ul>
-    </div>
-    <div>
-        <form method="post" >
-            <input type="text" name="class">
-            <button type="submit">add class</button>
-        </form>
-    </div>
-        
+        .centered-div {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+    <title>Create Class</title>
+</head>
+<body>
+    <div style="background-color: rgb(185, 186, 254);" class="centered-div" class="alert alert-secondary">
+        <div  role="alert">
     
+            <ul style="margin-top: 12rem" ;>
+    
+                <% classList.forEach(element => { %>
+                    <li style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="/qr/<%- element %>" style="align-content: center;"><%- element %></a>
+                        <form style="padding-bottom: 1rem;" action="/delete" method="post">
+                            <button style="display:inline-flex;" type="submit" name="element" value=<%- element %> >delete</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+            <form method="post" >
+                <input type="text" name="class">
+                <button type="submit">add class</button>
+            </form>
+    </div>
 </body>
 </html>

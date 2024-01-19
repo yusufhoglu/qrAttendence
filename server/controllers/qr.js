@@ -1,8 +1,7 @@
 const QRCode = require("qrcode");
-const { getAttendence,getStudentList } = require("./attendence");
+const { getAttendence, getStudentList } = require("./attendence");
 const { User } = require("../models/userModel");
 const Class = require("../models/classModel");
-
 
 // const addClass = (req, res) => {
 //   const email = "hocaogluyusuf35@gmail.com";
@@ -23,15 +22,14 @@ const qr = async (req, res) => {
   const token = `${qrContent}|${expirationTime}`;
   getAttendence(qrContent);
   let list = [];
-  
-  await Class.findOne({className:qrContent})
-  .then((newClass) =>{
+
+  await Class.findOne({ className: qrContent }).then((newClass) => {
     list = newClass.students;
-  })
-  
+  });
+
   QRCode.toDataURL(token)
     .then((url) => {
-      res.render("qr", { qr: url, attendence: list, className: qrContent});
+      res.render("qr", { qr: url, attendence: list, className: qrContent });
     })
     .catch((err) => {
       console.error(err);
@@ -47,17 +45,22 @@ const scan = async (req, res) => {
   const { data, email } = req.body;
   const className = data.split("|")[0];
   const timeStamp = Date(parseInt(data.split("|")[1]));
-  // console.log("tarama yapıldı", "name:", className, "timestamp:", (timeStamp));
+  const fark = parseInt(data.split("|")[1]) - Date.now();
+  console.log(fark / 1000);
   // console.log(email)
-  User.findOne({ email }).then((user) => {
-    // console.log(timeStamp)
-    user.class = {
-      className: className,
-      timeStamp: timeStamp,
-    };
-    // console.log("saveledi")
-    user.save();
-  });
+  if (fark / 1000 > 1) {
+    User.findOne({ email }).then((user) => {
+      // console.log(timeStamp)
+      user.class = {
+        className: className,
+        timeStamp: timeStamp,
+      };
+      // console.log("saveledi")
+      user.save();
+    });
+  } else {
+    console.log("geçersiz qr");
+  }
 };
 
 module.exports = { qr, scan };
