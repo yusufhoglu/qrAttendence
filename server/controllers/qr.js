@@ -31,7 +31,7 @@ const qr = async (req, res) => {
   
   QRCode.toDataURL(token)
     .then((url) => {
-      res.render("qr", { qr: url, attendence: list});
+      res.render("qr", { qr: url, attendence: list, className: qrContent});
     })
     .catch((err) => {
       console.error(err);

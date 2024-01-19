@@ -5,21 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
 </head>
-<body>
-    <ul style="display: inline-block;display: flex;">
+<body style="display: flex;justify-content: center;">
+    <div> 
+        <ul style="margin-top: 12rem" ;>
 
-        <% classList.forEach(element => { %>
-            
-                <a href="/qr/<%- element %>"><%- element %></a>
-                <form action="/delete" method="post">
-                    <button type="submit" name="element" value=<%- element %> >delete</button>
-                </form>
-             
-        <% }); %>
-    </ul>
-    <form method="post">
-        <input type="text" name="class">
-        <button type="submit">add class</button>
-    </form>
+            <% classList.forEach(element => { %>
+                <li style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="/qr/<%- element %>"><%- element %></a>
+                    <form style="padding-bottom: 1rem;" action="/delete" method="post">
+                        <button style="display:;" type="submit" name="element" value=<%- element %> >delete</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    <div>
+        <form method="post" >
+            <input type="text" name="class">
+            <button type="submit">add class</button>
+        </form>
+    </div>
+        
+    
 </body>
 </html>
