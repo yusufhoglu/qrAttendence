@@ -22,4 +22,10 @@ const menu = async (req,res) => {
     res.render("menu",{"classList":classList});
 };
 
-module.exports = {menu,addClass}
+const deleteClass = async(req,res)=>{
+    const className = req.body.element;
+    await Class.findOneAndDelete({className:className});
+    res.redirect("/menu");
+}
+
+module.exports = {menu,addClass,deleteClass}

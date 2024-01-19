@@ -5,7 +5,7 @@ let attendence = [];
 const getAttendence = async (className) => {
   await User.find({
     class: {
-       $elemMatch: { className: className, timeStamp: { $gte: Date.now() } },
+       $elemMatch: { className: className, timeStamp: { $gte: Date.now() -10800} },
     },
   })
     .then((user) => {

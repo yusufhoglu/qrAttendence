@@ -1,20 +1,17 @@
 const express = require("express");
 var initial = require("../controllers/initial");
-var {
-  getChangePassword,
-  postChangePassword,
-} = require("../controllers/changePassword");
+var { getChangePassword,postChangePassword,changeDetails} = require("../controllers/changePassword");
 var getHome = require("../controllers/home");
 var { getLogin, postLogin, postLoginMobile } = require("../controllers/login");
 var { logOut } = require("../controllers/logout");
-var { postPassword, getPassword } = require("../controllers/password");
+var { postPassword, getPassword} = require("../controllers/password");
 var { qr, scan } = require("../controllers/qr");
 var { reset, postReset } = require("../controllers/reset");
 var { verificate, postVerificate } = require("../controllers/verification");
 var { auth, authCallBack } = require("../controllers/googleAuthentication");
 var { passport } = require("../config/passport");
 var { getSignIn, postSignIn } = require("../controllers/signin");
-var { menu, addClass } = require("../controllers/menu");
+var { menu, addClass ,deleteClass } = require("../controllers/menu");
 
 const router = express.Router();
 
@@ -60,7 +57,8 @@ router.get(
   }
 );
 router.post('/scan',scan);
-
+router.post('/delete',deleteClass)
+router.post('/changeDetails',changeDetails);
 router.get("/qr/:qr", qr);
 
 module.exports = router;

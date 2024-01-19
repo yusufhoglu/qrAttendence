@@ -38,5 +38,18 @@ const postChangePassword = async (req,res) =>{
         
     });
 }
+const changeDetails = async (req,res) =>{
+    const id = req.body.studentId;
+    const name = req.body.name;
+    const email = req.session.email;
 
-module.exports = {getChangePassword,postChangePassword}
+    await User.findOne({email:email})
+    .then((user) => {
+        user.name = name;
+        user.studentId = id;
+        user.save();
+    })
+    res.redirect("/");
+
+}
+module.exports = {getChangePassword,postChangePassword,changeDetails}

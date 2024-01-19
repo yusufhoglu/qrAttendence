@@ -11,8 +11,8 @@
         <% classList.forEach(element => { %>
             
                 <a href="/qr/<%- element %>"><%- element %></a>
-                <form method="post">
-                    <button type="submit">delete</button>
+                <form action="/delete" method="post">
+                    <button type="submit" name="element" value=<%- element %> >delete</button>
                 </form>
              
         <% }); %>
